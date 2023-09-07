@@ -46,7 +46,7 @@ const SignUpModal = ({ setShowRegisterModal }) => {
     <div>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
         <div className="relative w-auto my-6 mx-auto max-w-sm">
-          <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+          <div class="w-80 max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
             <form onSubmit={submitForm} class="space-y-6">
               <h5 class="text-xl font-medium text-gray-900">
                 Create an account

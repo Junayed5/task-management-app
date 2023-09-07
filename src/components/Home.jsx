@@ -15,14 +15,19 @@ const Home = () => {
     fetch("http://localhost:5000/tasks")
       .then((res) => res.json())
       .then((data) => setTasks(data));
-  }, []);
-
-  console.log(tasks);
+  }, [tasks]);
 
   return (
     <div className="mt-20">
+      <div className="grid grid-cols-3 ">
+        {tasks
+          ?.filter((task) => task?.addedUser === user?.email)
+          ?.map((task) => (
+            <TaskCard key={task._id} task={task} />
+          ))}
+      </div>
+
       <div className="border-4 border-dashed h-64 w-60 flex items-center justify-center">
-        {/* <button className="text-xl font-semibold"></button> */}
         <button
           type="button"
           onClick={() => setShowModal(true)}
@@ -32,7 +37,9 @@ const Home = () => {
         </button>
       </div>
 
-      {showModal ? <TaskAddModal setShowModal={setShowModal} /> : null}
+      {showModal && user?.email ? (
+        <TaskAddModal setShowModal={setShowModal} />
+      ) : null}
     </div>
   );
 };
