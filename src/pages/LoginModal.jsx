@@ -5,14 +5,24 @@ import { auth } from "../firebase.init";
 const LoginModal = ({ setShowModal }) => {
   let failed;
 
-  const [] = useSignInWithEmailAndPassword(auth);
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  if (failed) {
+    console.log(error.message);
+  }
+
+  if (user) {
+    console.log(user.user.email);
+    setShowModal(false);
+  }
 
   const submitForm = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-    console.log({ email, password });
+    signInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -21,9 +31,7 @@ const LoginModal = ({ setShowModal }) => {
         <div className="relative w-auto my-6 mx-auto max-w-sm">
           <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
             <form onSubmit={submitForm} class="space-y-6">
-              <h5 class="text-xl font-medium text-gray-900">
-                Create an account
-              </h5>
+              <h5 class="text-xl font-medium text-gray-900">Log in</h5>
               <div>
                 <label
                   for="email"

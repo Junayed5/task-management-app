@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskCard from "./TaskCard";
 import SignUp from "../pages/SignUpModal";
 import Login from "../pages/LoginModal";
 import TaskAddModal from "../layout/TaskAddModal";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase.init";
 
 const Home = () => {
+  const [user] = useAuthState(auth);
   const [showModal, setShowModal] = useState(false);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/tasks")
+      .then((res) => res.json())
+      .then((data) => setTasks(data));
+  }, []);
+
+  console.log(tasks);
 
   return (
     <div className="mt-20">

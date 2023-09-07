@@ -20,13 +20,26 @@ const SignUpModal = ({ setShowRegisterModal }) => {
     setShowRegisterModal(false);
   }
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    createUserWithEmailAndPassword(email, password);
+
+    const user = { name, email };
+    await createUserWithEmailAndPassword(email, password);
     // console.log({ name, email, password });
+
+    const res = await fetch("http://localhost:5000/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const result = await res.json();
+    console.log(result);
   };
 
   return (
