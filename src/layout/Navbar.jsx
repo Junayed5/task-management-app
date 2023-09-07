@@ -1,27 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import LoginModal from "../pages/LoginModal";
+import SignUpModal from "../pages/SignUpModal";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase.init";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
+  const [user] = useAuthState(auth);
+  const [showLoginModal, setShowModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  const handleSignOut = () => {
+    signOut(auth);
+  };
   return (
     <div>
       <nav class="bg-white fixed w-full z-20 top-0 left-0 border-b border-gray-200 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="https://flowbite.com/" class="flex items-center">
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              class="h-8 mr-3"
-              alt="Flowbite Logo"
-            />
+          <a href="/" class="flex items-center">
             <span class="self-center text-2xl font-semibold whitespace-nowrap ">
-              Flowbite
+              Task Manager
             </span>
           </a>
           <div class="flex md:order-2">
-            <button
-              type="button"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
-            >
-              Get started
-            </button>
+            {user ? (
+              <button
+                type="button"
+                onClick={handleSignOut}
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
+              >
+                Sign out
+              </button>
+            ) : (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(true)}
+                  class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-2"
+                >
+                  Sign in
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowRegisterModal(true)}
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -88,6 +115,10 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
+        {showLoginModal ? <LoginModal setShowModal={setShowModal} /> : null}
+        {showRegisterModal ? (
+          <SignUpModal setShowRegisterModal={setShowRegisterModal} />
+        ) : null}
       </nav>
     </div>
   );
