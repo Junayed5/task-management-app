@@ -4,7 +4,7 @@ import UsersModal from "../pages/UsersModal";
 const TaskCard = ({ task }) => {
   const [userModal, setUserModal] = useState(false);
   const completeTask = (id) => {
-    fetch(`http://localhost:5000/taskComplete/${id}`, {
+    fetch(`https://task-management-xlpq.onrender.com/taskComplete/${id}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
@@ -16,7 +16,7 @@ const TaskCard = ({ task }) => {
 
   const shareWithOthers = (email) => {
     const data = { mail: email };
-    fetch(`http://localhost:5000/taskShare/${task._id}`, {
+    fetch(`https://task-management-xlpq.onrender.com/taskShare/${task._id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

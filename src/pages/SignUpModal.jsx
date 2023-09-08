@@ -29,7 +29,7 @@ const SignUpModal = ({ setShowRegisterModal }) => {
     await createUserWithEmailAndPassword(email, password);
     // console.log({ name, email, password });
 
-    const res = await fetch("http://localhost:5000/user", {
+    const res = await fetch("https://task-management-xlpq.onrender.com/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

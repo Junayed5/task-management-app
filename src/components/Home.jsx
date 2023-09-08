@@ -15,7 +15,7 @@ const Home = () => {
   const [toggleFilterProgress, setToggleProgress] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/tasks")
+    fetch("https://task-management-xlpq.onrender.com/tasks")
       .then((res) => res.json())
       .then((data) => setTasks(data));
   }, [tasks]);
@@ -37,7 +37,7 @@ const Home = () => {
   if (toggleFilterProgress) {
     content = tasks
       ?.filter((task) => task?.addedUser === user?.email)
-      ?.filter((task) => task.status === toggleFilterProgress)
+      ?.filter((task) => !task.status)
       ?.map((task) => <TaskCard key={task._id} task={task} />);
   }
 
@@ -68,10 +68,10 @@ const Home = () => {
       {user && (
         <h1 className="text-3xl font-semibold text-center py-5">My tasks</h1>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3 w-full mx-5">
         {content}
 
-        <div className="border-4 border-dashed h-52 w-60 flex items-center justify-center mx-5">
+        <div className="border-4 border-dashed h-52 w-60 flex items-center justify-center ">
           <button
             type="button"
             onClick={() => setShowModal(true)}
@@ -84,7 +84,7 @@ const Home = () => {
       {user && teamTask && (
         <h1 className="text-3xl font-semibold text-center py-5">Team task</h1>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-y-3 mx-5">
         {teamTask?.map((task) => (
           <TaskCard key={task._id} task={task} />
         ))}

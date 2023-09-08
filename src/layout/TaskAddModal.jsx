@@ -26,7 +26,7 @@ const TaskAddModal = ({ setShowModal }) => {
       shareWith,
     };
 
-    const res = await fetch("http://localhost:5000/task", {
+    const res = await fetch("https://task-management-xlpq.onrender.com/task", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -4,7 +4,7 @@ const UsersModal = ({ setUserModal, shareWithOthers }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://task-management-xlpq.onrender.com/users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
