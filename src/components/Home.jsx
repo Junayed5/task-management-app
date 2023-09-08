@@ -22,7 +22,7 @@ const Home = () => {
 
   const filter = tasks.filter((task) => task.shareWith);
   const teamTask = filter.filter((f) => f.shareWith.includes(user?.email));
-  const activeClass = "bg-blue-800 text-white";
+  const activeClass = "bg-purple-800 text-white";
 
   content = tasks
     ?.filter((task) => task?.addedUser === user?.email)
