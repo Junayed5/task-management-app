@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import UsersModal from "../pages/UsersModal";
 
 const TaskCard = ({ task }) => {
+  const [userModal, setUserModal] = useState(false);
   const completeTask = (id) => {
     fetch(`http://localhost:5000/taskComplete/${id}`, {
       method: "PATCH",
@@ -10,6 +12,19 @@ const TaskCard = ({ task }) => {
     })
       .then((res) => res.json())
       .then((data) => console.log(data));
+  };
+
+  const shareWithOthers = (email) => {
+    const data = { shareWith: email };
+    fetch(`http://localhost:5000/taskShare/${task._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log("success", data));
   };
 
   return (
@@ -35,16 +50,33 @@ const TaskCard = ({ task }) => {
         <p>Deadline : {task?.deadline}</p>
         <p>priority : {task?.priority}</p>
 
-        {!task.status && (
+        <div className="flex justify-between mt-5">
+          {!task.status && (
+            <button
+              type="button"
+              onClick={() => completeTask(task._id)}
+              class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-2"
+            >
+              Complete
+            </button>
+          )}
           <button
             type="button"
-            onClick={() => completeTask(task._id)}
-            class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-2"
+            onClick={() => {
+              setUserModal(true);
+            }}
+            class="text-white bg-orange-500 hover:bg-orange-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-2"
           >
-            Complete
+            Share with
           </button>
-        )}
+        </div>
       </div>
+      {userModal ? (
+        <UsersModal
+          setUserModal={setUserModal}
+          shareWithOthers={shareWithOthers}
+        />
+      ) : null}
     </div>
   );
 };

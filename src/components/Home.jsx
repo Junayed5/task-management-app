@@ -19,9 +19,18 @@ const Home = () => {
 
   return (
     <div className="mt-20">
+      <h1>My tasks</h1>
       <div className="grid grid-cols-3 ">
         {tasks
           ?.filter((task) => task?.addedUser === user?.email)
+          ?.map((task) => (
+            <TaskCard key={task._id} task={task} />
+          ))}
+      </div>
+      <h1>Team task</h1>
+      <div className="grid grid-cols-3 ">
+        {tasks
+          ?.filter((task) => task.shareWith)
           ?.map((task) => (
             <TaskCard key={task._id} task={task} />
           ))}
