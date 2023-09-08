@@ -3,11 +3,12 @@ import "./App.css";
 import { router } from "./routes/router";
 import Home from "./components/Home";
 import Navbar from "./layout/Navbar";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
-      {/* <RouterProvider router={router} /> */}
+      <Toaster />
       <Navbar />
       <Home />
     </>

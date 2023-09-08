@@ -4,19 +4,18 @@ import {
   useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.init";
+import toast from "react-hot-toast";
 
 const SignUpModal = ({ setShowRegisterModal }) => {
-  let failed;
-
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
   if (error) {
-    failed = error.message;
+    toast.error(error.message, { id: "error" });
   }
 
   if (user) {
-    console.log(user);
+    toast.success("Sign up success", { id: "register" });
     setShowRegisterModal(false);
   }
 

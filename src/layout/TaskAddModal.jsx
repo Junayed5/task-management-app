@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.init";
+import toast from "react-hot-toast";
 
 const TaskAddModal = ({ setShowModal }) => {
   const [user] = useAuthState(auth);
@@ -36,6 +37,7 @@ const TaskAddModal = ({ setShowModal }) => {
     const result = await res.json();
 
     if (result.acknowledged) {
+      toast.success("New task added", { id: "taskAdd" });
       setShowModal(false);
     }
   };
