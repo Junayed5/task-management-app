@@ -6,7 +6,7 @@ import {
 import { auth } from "../firebase.init";
 import toast from "react-hot-toast";
 
-const SignUpModal = ({ setShowRegisterModal }) => {
+const SignUpModal = ({ setShowRegisterModal, setModal }) => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
 
@@ -106,9 +106,12 @@ const SignUpModal = ({ setShowRegisterModal }) => {
               </button>
               <div class="text-sm font-medium text-gray-500">
                 Have account?{" "}
-                <a href="#" class="text-blue-700 hover:underline">
+                <button
+                  onClick={() => setModal(true) && setShowRegisterModal(false)}
+                  class="text-blue-700 hover:underline"
+                >
                   Please Login
-                </a>
+                </button>
               </div>
             </form>
             <div className="flex items-center justify-end rounded-b">

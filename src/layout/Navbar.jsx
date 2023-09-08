@@ -37,7 +37,7 @@ const Navbar = () => {
                 <div className="mx-5">
                   <img
                     onClick={() => setShowProfileModal(true)}
-                    className="h-10 w-10 rounded-full border-2 cursor-pointer"
+                    className="h-10 w-10 rounded-full border-2 cursor-pointerin"
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuU542gIINaIEySG4eg4v6AIs9vZmqn1nJZQ&usqp=CAU"
                     alt=""
                   />
@@ -87,12 +87,20 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {showLoginModal ? <LoginModal setShowModal={setShowModal} /> : null}
+        {showLoginModal ? (
+          <LoginModal
+            setShowModal={setShowModal}
+            setShowRegisterModal={setShowRegisterModal}
+          />
+        ) : null}
         {showProfileModal ? (
           <ProfileModal setShowProfileModal={setShowProfileModal} />
         ) : null}
         {showRegisterModal ? (
-          <SignUpModal setShowRegisterModal={setShowRegisterModal} />
+          <SignUpModal
+            setShowRegisterModal={setShowRegisterModal}
+            setShowModal={setShowModal}
+          />
         ) : null}
       </nav>
     </div>

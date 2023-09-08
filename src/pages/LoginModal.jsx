@@ -3,7 +3,7 @@ import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../firebase.init";
 import toast from "react-hot-toast";
 
-const LoginModal = ({ setShowModal }) => {
+const LoginModal = ({ setShowModal, setShowRegisterModal }) => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
@@ -71,9 +71,14 @@ const LoginModal = ({ setShowModal }) => {
               </button>
               <div class="text-sm font-medium text-gray-500">
                 Create an account?{" "}
-                <a href="#" class="text-blue-700 hover:underline">
+                <button
+                  onClick={() =>
+                    setShowRegisterModal(true) && setShowModal(false)
+                  }
+                  class="text-blue-700 hover:underline"
+                >
                   Please Register
-                </a>
+                </button>
               </div>
             </form>
             <div className="flex items-center justify-end rounded-b">
