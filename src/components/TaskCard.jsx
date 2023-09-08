@@ -15,7 +15,7 @@ const TaskCard = ({ task }) => {
   };
 
   const shareWithOthers = (email) => {
-    const data = { shareWith: email };
+    const data = { mail: email };
     fetch(`http://localhost:5000/taskShare/${task._id}`, {
       method: "PUT",
       headers: {

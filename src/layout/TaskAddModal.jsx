@@ -13,8 +13,17 @@ const TaskAddModal = ({ setShowModal }) => {
     const priority = e.target.priority.value;
     const addedUser = user.email;
     const status = false;
+    const shareWith = [];
 
-    const task = { title, description, deadline, priority, addedUser, status };
+    const task = {
+      title,
+      description,
+      deadline,
+      priority,
+      addedUser,
+      status,
+      shareWith,
+    };
 
     const res = await fetch("http://localhost:5000/task", {
       method: "POST",
